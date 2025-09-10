@@ -85,6 +85,9 @@ where
             Msg::StartedHeight(height, reply_to) => {
                 if state.height == height {
                     debug!(%height, "WAL already at height, ignoring");
+                    reply_to
+                        .send(Ok(None))
+                        .map_err(|e| eyre!("Failed to send reply: {e}"))?;
                     return Ok(());
                 }
 
