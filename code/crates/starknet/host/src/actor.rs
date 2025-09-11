@@ -228,7 +228,10 @@ async fn on_consensus_ready(
 
     state.start_height = start_height;
 
-    if !state.peers.is_empty() {
+    // let empty_state_peer = state.peers.is_empty();
+    let empty_state_peer = false;
+
+    if !empty_state_peer {
         tokio::time::sleep(Duration::from_millis(200)).await;
 
         consensus.cast(ConsensusMsg::StartHeight(
